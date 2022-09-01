@@ -1,0 +1,18 @@
+.dialogs{
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    grid-gap: 10px;
+}
+.dialogsItems {
+    text-align: center;
+}
+.item{
+    color: purple;
+}
+.messages{
+    border: 2px solid black;
+    text-align: center;
+}
+.message{
+    color: darkgray;
+}
