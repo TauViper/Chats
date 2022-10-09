@@ -9,14 +9,14 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 export const App = () => {
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className='App'>
         <Header />
         <Navbar />
-        <div className="profile">
+        <div className='profile'>
           <Routes>
-            <Route path="/" element={<Profile />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="dialogs" element={<Dialogs />} />
+            <Route path='/' element={<Profile />} />
+            <Route path='profile' element={<Profile />} />
+            <Route path='dialogs' element={<Dialogs />} />
           </Routes>
         </div>
       </div>

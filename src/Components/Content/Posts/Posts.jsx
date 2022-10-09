@@ -1,24 +1,29 @@
 import React from 'react';
-// import classes from './Posts.module.css';
 import { Post } from './Post/Post';
-import { Data } from '../../Data';
-import { AddPost } from '../../../AddPost';
-
-AddPost('12', 'test');
-const PostVal = Data.ProfileData.PostText.map((item) => (
-  <Post key={item.key} message={item.message} />
-));
+import { useSelector, useDispatch } from 'react-redux';
+import { ADD_POST } from '../../Store/action';
+import { InputPost } from './Post/InputPost';
 
 export const Posts = () => {
+  const posts = useSelector((state) => state.post);
+  const dispatch = useDispatch();
+  const handleClick = (message) => {
+    dispatch({
+      type: ADD_POST,
+      payload: {
+        id: new Date(),
+        message,
+      },
+    });
+  };
   return (
     <div>
-      <div>Ava + Discr</div>
+      <div>Ava + Description</div>
       <div>My post</div>
-      <div>
-        <input />
-        <button>Add Posts</button>
-      </div>
-      {PostVal}
+      <InputPost onAdd={handleClick} />
+      {posts.map((post) => (
+        <Post key={post.id} message={post.message} />
+      ))}
     </div>
   );
 };
