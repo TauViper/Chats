@@ -2,24 +2,23 @@ import React, { useState } from 'react';
 import classes from './Dialogs.module.css';
 import { DialogItem } from './DialogItem';
 import { Message } from './Message';
-// import { Data } from '../../Data';
-import { useSelector } from 'react-redux';
+import { Data } from '../../Data';
+import { useDispatch, useSelector } from 'react-redux';
+import { addMessage } from '../../Store/action';
 
 export const Dialogs = () => {
-  const dialog = useSelector((state) => state.post);
-  const Item = dialog.DialogData.Dialog.map((item) => (
+  const dispatch = useDispatch();
+  const [message, setMessage] = useState('');
+  const dialog = useSelector(() => Data);
+  const text = useSelector((state) => state.message);
+  // console.log(text);
+
+  const Item = dialog.map((item) => (
     <DialogItem key={item.id} id={item.id} name={item.name} />
   ));
-  const [message, setMessage] = useState('');
-  const [text, setText] = useState(dialog.DialogData.MessageText);
+
   const handleClick = () => {
-    setText([
-      ...text,
-      {
-        id: new Date(),
-        message: message,
-      },
-    ]);
+    dispatch(addMessage(message));
     setMessage('');
   };
 

@@ -5,6 +5,7 @@ import { Navbar } from './Components/Content/Navbar/Navbar';
 import { Profile } from './Components/Content/Profile/Profile';
 import { Dialogs } from './Components/Content/Dialogs/Dialogs';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Users } from './Components/Content/Users/Users';
 
 export const App = () => {
   return (
@@ -17,6 +18,7 @@ export const App = () => {
             <Route path='/' element={<Profile />} />
             <Route path='profile' element={<Profile />} />
             <Route path='dialogs' element={<Dialogs />} />
+            <Route path='users' element={<Users />} />
           </Routes>
         </div>
       </div>

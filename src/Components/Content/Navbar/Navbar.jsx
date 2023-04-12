@@ -20,6 +20,14 @@ export const Navbar = () => {
           Messages
         </NavLink>
       </div>
+      <div>
+        <NavLink
+          to='/users'
+          className={({ isActive }) => (isActive ? classes.active : '')}
+        >
+          Users
+        </NavLink>
+      </div>
       <div>News</div>
       <div>Music</div>
       <div>Settings</div>

@@ -1,20 +1,16 @@
 import React from 'react';
 import { Post } from './Post/Post';
 import { useSelector, useDispatch } from 'react-redux';
-import { ADD_POST } from '../../Store/action';
+// import { ADD_POST } from '../../Store/action';
 import { InputPost } from './Post/InputPost';
+
+import { addPost } from '../../Store/action';
 
 export const Posts = () => {
   const posts = useSelector((state) => state.post);
   const dispatch = useDispatch();
   const handleClick = (message) => {
-    dispatch({
-      type: ADD_POST,
-      payload: {
-        id: new Date(),
-        message,
-      },
-    });
+    dispatch(addPost(message));
   };
   return (
     <div>

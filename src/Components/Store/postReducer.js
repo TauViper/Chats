@@ -1,4 +1,4 @@
-import { ADD_POST } from './action';
+import { ADD_POST } from './constants';
 
 const initialPostState = [
   { id: '1', message: 'I`m Grut' },
@@ -9,10 +9,9 @@ const initialPostState = [
 
 export const postReducer = (state = initialPostState, action) => {
   switch (action.type) {
-    case ADD_POST: {
-      const post = action.payload;
-      return [...state, post];
-    }
+    case ADD_POST:
+      return [...state, action.payload];
+
     default:
       return state;
   }
