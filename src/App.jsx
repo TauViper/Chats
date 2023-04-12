@@ -1,15 +1,27 @@
 import React from 'react';
 import './App.css';
-import { Header } from './Components/Header/Header';
-import { Navbar } from './Components/Navbar/Navbar';
-import { Content } from './Components/Content/Content';
+import { Header } from './Components/Content/Header/Header';
+import { Navbar } from './Components/Content/Navbar/Navbar';
+import { Profile } from './Components/Content/Profile/Profile';
+import { Dialogs } from './Components/Content/Dialogs/Dialogs';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Users } from './Components/Content/Users/Users';
 
 export const App = () => {
   return (
-    <div className="App">
-      <Header />
-      <Navbar />
-      <Content />
-    </div>
+    <BrowserRouter>
+      <div className='App'>
+        <Header />
+        <Navbar />
+        <div className='profile'>
+          <Routes>
+            <Route path='/' element={<Profile />} />
+            <Route path='profile' element={<Profile />} />
+            <Route path='dialogs' element={<Dialogs />} />
+            <Route path='users' element={<Users />} />
+          </Routes>
+        </div>
+      </div>
+    </BrowserRouter>
   );
 };

@@ -5,13 +5,27 @@ export const Navbar = () => {
   return (
     <div className={classes.nav}>
       <div>
-        <NavLink to="/profile" className={({ isActive }) => (isActive ? classes.active : '')}>
+        <NavLink
+          to='/profile'
+          className={({ isActive }) => (isActive ? classes.active : '')}
+        >
           Profile
         </NavLink>
       </div>
       <div>
-        <NavLink to="/dialogs" className={({ isActive }) => (isActive ? classes.active : '')}>
+        <NavLink
+          to='/dialogs'
+          className={({ isActive }) => (isActive ? classes.active : '')}
+        >
           Messages
+        </NavLink>
+      </div>
+      <div>
+        <NavLink
+          to='/users'
+          className={({ isActive }) => (isActive ? classes.active : '')}
+        >
+          Users
         </NavLink>
       </div>
       <div>News</div>

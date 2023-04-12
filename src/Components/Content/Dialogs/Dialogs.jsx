@@ -1,17 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classes from './Dialogs.module.css';
 import { DialogItem } from './DialogItem';
 import { Message } from './Message';
-import { MessageText, Dialog } from '../Data';
-
-const Item = Dialog.map((item) => <DialogItem key={item.id} id={item.id} name={item.name} />);
-const MessageVal = MessageText.map((item) => <Message key={item.key} message={item.message} />);
+import { Data } from '../../Data';
+import { useDispatch, useSelector } from 'react-redux';
+import { addMessage } from '../../Store/action';
 
 export const Dialogs = () => {
+  const dispatch = useDispatch();
+  const [message, setMessage] = useState('');
+  const dialog = useSelector(() => Data);
+  const text = useSelector((state) => state.message);
+  // console.log(text);
+
+  const Item = dialog.map((item) => (
+    <DialogItem key={item.id} id={item.id} name={item.name} />
+  ));
+
+  const handleClick = () => {
+    dispatch(addMessage(message));
+    setMessage('');
+  };
+
+  const MessageVal = text.map((post) => (
+    <Message key={post.id} message={post.message} />
+  ));
+
   return (
     <div className={classes.dialogs}>
       <div className={classes.dialogsItems}>{Item}</div>
-      <div className={classes.messages}>{MessageVal}</div>
+      <div className={classes.messages}>
+        {MessageVal}
+        <>
+          <input
+            type='text'
+            value={message}
+            onChange={(e) => {
+              setMessage(e.target.value);
+            }}
+          />
+          <button type='submit' onClick={handleClick}>
+            Add Message
+          </button>
+        </>
+      </div>
     </div>
   );
 };
