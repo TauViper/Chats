@@ -1,15 +1,18 @@
-import React from 'react';
+import { FC } from 'react';
 import classes from './Users.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { currentPage } from '../../Store/action';
+import { StoreState } from 'src/Components/Store';
 
 export const pagesSize = 100;
 
-export const PageCount = () => {
-  const totalUsers = useSelector((state) => state.total);
-  const currentPageState = useSelector((state) => state.currentPage);
+export const PageCount: FC = () => {
+  const totalUsers = useSelector((state: StoreState) => state.total);
+  const currentPageState = useSelector(
+    (state: StoreState) => state.currentPage
+  );
   const dispatch = useDispatch();
-  console.log(totalUsers, currentPageState);
+  // console.log(totalUsers, currentPageState);
   const usersPage = [];
   const usersDef = Math.ceil(totalUsers / pagesSize);
 
@@ -17,7 +20,7 @@ export const PageCount = () => {
     usersPage.push(i);
   }
   // console.log(usersPage);
-  const currentPageNum = (num) => {
+  const currentPageNum = (num: number) => {
     dispatch(currentPage(num));
   };
   return (

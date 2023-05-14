@@ -1,46 +1,57 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import classes from './Users.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeButton, getRes, getTotal } from '../../Store/action';
+import {
+  changeButton,
+  getRes,
+  getTotal,
+  // showPreloader,
+} from '../../Store/action';
 import { PageCount } from './PagesCount';
 import { COUNT, HTTPS, USER } from '../../Api/api';
+import { Preloader } from '../Preloader/Preloader';
+import ava from '../../../Assets/cOPpcB6.png';
+import { NavLink } from 'react-router-dom';
+import { GetUserID } from '../../../App';
 
-export const Users = () => {
-  const stateUser = useSelector((state) => state.users);
+export const FromUsersContext = () => {
+  const stateUser = useSelector((state) => state.users.userItems);
+  const showSpiner = useSelector((state) => state.users.isLoader);
   const currentPageState = useSelector((state) => state.currentPage);
   const dispatch = useDispatch();
 
-  // const getUsers = async (url) => {
-  //   const res = await getApiResource(url);
-  //   console.log(res.items);
-
-  //   dispatch(getRes(res.items));
-  // };
-
   useEffect(() => {
     dispatch(getRes(HTTPS + USER + `?page=${currentPageState}` + COUNT));
-    dispatch(getTotal());
-    // getUsers(HTTPS + USER);
+    dispatch(getTotal(HTTPS + USER));
   }, [dispatch, currentPageState]);
 
   const toggle = (id) => {
     dispatch(changeButton(id));
   };
-
-  // const usersList = stateUser.items;
+  const { setUserId } = useContext(GetUserID);
   return (
     <div>
       <h1>Users</h1>
       <PageCount />
-      {stateUser &&
+      {showSpiner ? (
+        <Preloader />
+      ) : (
+        stateUser &&
         stateUser.map((item) => (
           <div key={item.id} className={classes.userContainer}>
             <div className={classes.userData}>
-              <img
-                className={classes.userPhoto}
-                src={item.photos.small}
-                alt={item.name}
-              />
+              <NavLink
+                to='/Profile'
+                onClick={() => {
+                  setUserId(item.id);
+                }}
+              >
+                <img
+                  className={classes.userPhoto}
+                  src={item.photos.small !== null ? item.photos.small : ava}
+                  alt={item.name}
+                />
+              </NavLink>
 
               <button
                 className={classes.userFallowedBtn}
@@ -68,7 +79,8 @@ export const Users = () => {
               </div>
             </div>
           </div>
-        ))}
+        ))
+      )}
     </div>
   );
 };

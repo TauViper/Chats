@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import { useState, FC } from 'react';
 
-export const InputPost = ({ onAdd }) => {
+type Props = {
+  onAdd: (message: string) => void;
+};
+export const InputPost: FC<Props> = ({ onAdd }) => {
   const [message, setMessage] = useState('');
   const onText = () => {
-    onAdd(message);
+    if (message) {
+      onAdd(message);
+      setMessage('');
+    }
     setMessage('');
   };
   return (

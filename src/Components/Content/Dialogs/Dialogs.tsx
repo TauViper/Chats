@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import { useState, FC } from 'react';
 import classes from './Dialogs.module.css';
 import { DialogItem } from './DialogItem';
 import { Message } from './Message';
 import { Data } from '../../Data';
+import { StoreState } from 'src/Components/Store';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage } from '../../Store/action';
 
-export const Dialogs = () => {
+export const Dialogs: FC = () => {
   const dispatch = useDispatch();
   const [message, setMessage] = useState('');
   const dialog = useSelector(() => Data);
-  const text = useSelector((state) => state.message);
+  const text = useSelector((state: StoreState) => state.message);
   // console.log(text);
 
   const Item = dialog.map((item) => (
