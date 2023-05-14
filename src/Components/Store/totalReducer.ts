@@ -1,19 +1,50 @@
-import { GET_TOTAL } from './constants';
+import {
+  Reducer,
+  Slice,
+  createAsyncThunk,
+  createSlice,
+} from '@reduxjs/toolkit';
+// import { GET_TOTAL } from './constants';
 import { GetUsersTotalCount } from './types';
+import { getApiResource } from '../Api/api';
 
-type TotalState = number;
+type TotalState = { total: number };
 
-export const initialTotalState: TotalState = 0;
+export const initialState: TotalState = { total: 0 };
+console.log(initialState);
 
-export const totalReducer = (
-  state = initialTotalState,
-  action: GetUsersTotalCount
-): TotalState => {
-  switch (action.type) {
-    case GET_TOTAL:
-      return action.payload;
+// export const totalReducer = (
+//   state = initialState,
+//   action: GetUsersTotalCount
+// ): TotalState => {
+//   switch (action.type) {
+//     case GET_TOTAL:
+//       return action.payload;
 
-    default:
-      return state;
+//     default:
+//       return state;
+//   }
+// };
+export const getTotalUser = createAsyncThunk(
+  'total/getTotalUser',
+  async (url: string) => {
+    const res = await getApiResource(url);
+    const total = res.totalCount;
+    return total;
   }
-};
+);
+export const totalSlice: Slice<TotalState> = createSlice({
+  name: 'total',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(
+      getTotalUser.fulfilled,
+      (state, action: GetUsersTotalCount) => {
+        state.total = action.payload;
+      }
+    );
+  },
+});
+
+export const sliceTotal: Reducer<TotalState> = totalSlice.reducer;

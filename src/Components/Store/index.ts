@@ -6,7 +6,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import { messageReducer } from './messageReducer';
 import { usersReducer } from './userReducer ';
-import { totalReducer } from './totalReducer';
+import { sliceTotal } from './totalReducer';
 import { currentPageReducer } from './currentPageReducer';
 import { authReducer } from './authReducer';
 
@@ -20,7 +20,7 @@ export const rootReducer = combineReducers({
   post: slicePost,
   message: messageReducer,
   users: usersReducer,
-  total: totalReducer,
+  total: sliceTotal,
   currentPage: currentPageReducer,
   auth: authReducer,
 });

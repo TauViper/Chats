@@ -1,12 +1,12 @@
 import {
   ADD_MESSAGE,
-  ADD_POST,
+  // ADD_POST,
   AUTH_USER,
   CURRENT_PAGE,
   FOLLOWED,
   GET_TOTAL,
   GET_USERS,
-  GET_USER_PROFILE,
+  // GET_USER_PROFILE,
   SHOW_PRELOADER,
   UNFOLLOWED,
 } from './constants';
@@ -61,7 +61,7 @@ export type AddPost = {
   };
 };
 export type GetUserProfile = {
-  type: typeof GET_USER_PROFILE;
+  // type: typeof GET_USER_PROFILE;
   payload: {
     aboutMe: string;
     photos: {
@@ -70,7 +70,7 @@ export type GetUserProfile = {
   };
 };
 export type GetUsersTotalCount = {
-  type: typeof GET_TOTAL;
+  // type: typeof GET_TOTAL;
   payload: number;
 };
 export type UserItems = {

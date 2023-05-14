@@ -9,7 +9,7 @@ import {
   follow,
   unfollow,
   getRes,
-  getTotal,
+  // getTotal,
   // showPreloader,
 } from '../../Store/action';
 import { PageCount } from './PagesCount';
@@ -19,6 +19,7 @@ import ava from '../../../Assets/cOPpcB6.png';
 import { NavLink } from 'react-router-dom';
 import { StoreState } from 'src/Components/Store';
 import { ThunkDispatch } from 'redux-thunk';
+import { getTotalUser } from 'src/Components/Store/totalReducer';
 // import { GetUserID } from '../../../App';
 
 export const Users: FC = () => {
@@ -31,7 +32,7 @@ export const Users: FC = () => {
 
   useEffect(() => {
     dispatch(getRes(HTTPS + USER + `?page=${currentPageState}` + COUNT));
-    dispatch(getTotal(HTTPS + USER));
+    dispatch(getTotalUser(HTTPS + USER));
   }, [dispatch, currentPageState]);
 
   const toggleFollowed = (id: number) => {

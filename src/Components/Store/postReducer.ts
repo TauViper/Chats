@@ -1,11 +1,18 @@
-import { Reducer, Slice, createSlice } from '@reduxjs/toolkit';
+import {
+  // AsyncThunk,
+  Reducer,
+  Slice,
+  createAsyncThunk,
+  createSlice,
+} from '@reduxjs/toolkit';
 // import { ADD_POST, GET_USER_PROFILE } from './constants';
 import {
   AddPost,
-  //  GetUserProfile,
+  GetUserProfile,
   PostState,
   // UserPost
 } from './types';
+import { getApiResource } from '../Api/api';
 
 const initialState: PostState = {
   userPosts: [
@@ -34,6 +41,15 @@ const initialState: PostState = {
 //       return state;
 //   }
 // };
+
+export const getUserProf = createAsyncThunk(
+  'post/getUserProf',
+  async (url: string) => {
+    const res = await getApiResource(url);
+    return res;
+  }
+);
+
 const postSlice: Slice<PostState> = createSlice({
   name: 'post',
   initialState,
@@ -41,9 +57,14 @@ const postSlice: Slice<PostState> = createSlice({
     addPost(state: PostState, action: AddPost) {
       state.userPosts = [...state.userPosts, action.payload];
     },
-    getUserProfile(state: PostState, action) {
-      state.userProfile = action.payload;
-    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(
+      getUserProf.fulfilled,
+      (state: PostState, action: GetUserProfile) => {
+        state.userProfile = action.payload;
+      }
+    );
   },
 });
 export const { addPost } = postSlice.actions;

@@ -48,7 +48,6 @@ export const getRes = (url: string) => {
   return async (dispatch: Dispatch) => {
     dispatch(showPreloader(true));
     const res = await getApiResource(url);
-    console.log(res.items);
 
     dispatch({
       type: GET_USERS,

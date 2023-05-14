@@ -7,7 +7,9 @@ import { StoreState } from 'src/Components/Store';
 export const pagesSize = 100;
 
 export const PageCount: FC = () => {
-  const totalUsers = useSelector((state: StoreState) => state.total);
+  const totalUsers = useSelector((state: StoreState) => state.total.total);
+  console.log(totalUsers);
+
   const currentPageState = useSelector(
     (state: StoreState) => state.currentPage
   );
