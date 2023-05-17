@@ -1,27 +1,27 @@
 import { FC } from 'react';
 import classes from './Users.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { currentPage } from '../../Store/action';
+
 import { StoreState } from 'src/Components/Store';
+import { currentPage } from 'src/Components/Store/currentPageReducer';
 
 export const pagesSize = 100;
 
 export const PageCount: FC = () => {
   const totalUsers = useSelector((state: StoreState) => state.total.total);
-  console.log(totalUsers);
 
   const currentPageState = useSelector(
-    (state: StoreState) => state.currentPage
+    (state: StoreState) => state.currentPage.pageCount
   );
   const dispatch = useDispatch();
-  // console.log(totalUsers, currentPageState);
+
   const usersPage = [];
   const usersDef = Math.ceil(totalUsers / pagesSize);
 
   for (let i = 1; i <= usersDef; i++) {
     usersPage.push(i);
   }
-  // console.log(usersPage);
+
   const currentPageNum = (num: number) => {
     dispatch(currentPage(num));
   };

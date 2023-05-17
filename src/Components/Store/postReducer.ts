@@ -24,24 +24,6 @@ const initialState: PostState = {
   userProfile: null,
 };
 
-// export const postReducer = (
-//   state = initialPostState,
-//   action: AddPost | GetUserProfile
-// ): PostState => {
-//   switch (action.type) {
-//     case ADD_POST:
-//       return {
-//         ...state,
-//         userPosts: [...state.userPosts, action.payload],
-//       };
-//     case GET_USER_PROFILE:
-//       return { ...state, userProfile: action.payload };
-
-//     default:
-//       return state;
-//   }
-// };
-
 export const getUserProf = createAsyncThunk(
   'post/getUserProf',
   async (url: string) => {

@@ -1,39 +1,55 @@
-import { FOLLOWED, UNFOLLOWED, GET_USERS, SHOW_PRELOADER } from './constants';
-import { Follow, GetUsers, Init, ShowPreload, UnFollow } from './types';
+import {
+  Reducer,
+  Slice,
+  createAsyncThunk,
+  createSlice,
+} from '@reduxjs/toolkit';
 
-export const initialUserState: Init = {
+import { Init, UserItems } from './types';
+import { getApiResource } from '../Api/api';
+
+export const initialState: Init = {
   userItems: [],
   isLoader: false,
 };
 
-export const usersReducer = (
-  state = initialUserState,
-  action: GetUsers | ShowPreload | Follow | UnFollow
-) => {
-  switch (action.type) {
-    case GET_USERS:
-      return { ...state, userItems: action.payload };
+export const getRes = createAsyncThunk('user/getRes', async (url: string) => {
+  const res = await getApiResource(url);
 
-    case SHOW_PRELOADER:
-      return { ...state, isLoader: action.payload };
+  return res.items;
+});
 
-    case FOLLOWED:
-      return {
-        ...state,
-        userItems: state.userItems.map((item) =>
+const userSlice: Slice<Init> = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    getUser(state: Init, action) {
+      state.userItems = [...state.userItems, action.payload];
+    },
+
+    followed(state: Init, action) {
+      state.userItems = state.userItems.map(
+        (item): UserItems =>
           item.id === action.payload ? { ...item, followed: true } : item
-        ),
-      };
-    case UNFOLLOWED:
-      return {
-        ...state,
-        userItems: state.userItems.map((item) =>
+      );
+    },
+    unFollowed(state: Init, action) {
+      state.userItems = state.userItems.map(
+        (item): UserItems =>
           item.id === action.payload ? { ...item, followed: false } : item
-        ),
-      };
-
-    default:
-      return state;
-  }
-};
-// console.log(initialUserState);
+      );
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getRes.pending, (state) => {
+      state.isLoader = true;
+    });
+    builder.addCase(getRes.fulfilled, (state, action) => {
+      state.userItems = action.payload;
+      state.isLoader = false;
+    });
+  },
+});
+export const { getUser, showPreloader, followed, unFollowed } =
+  userSlice.actions;
+export const sliceUser: Reducer<Init> = userSlice.reducer;

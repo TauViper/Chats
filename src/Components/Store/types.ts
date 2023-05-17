@@ -1,12 +1,9 @@
 import {
   ADD_MESSAGE,
-  // ADD_POST,
   AUTH_USER,
   CURRENT_PAGE,
   FOLLOWED,
-  GET_TOTAL,
   GET_USERS,
-  // GET_USER_PROFILE,
   SHOW_PRELOADER,
   UNFOLLOWED,
 } from './constants';
@@ -20,25 +17,30 @@ export type AuthUser = {
   };
 };
 export type AuthData = {
-  id: null | string;
-  email: null | string;
-  login: null | string;
+  userData: {
+    id: null | string;
+    email: null | string;
+    login: null | string;
+  };
 };
 export type CurrentPage = {
   type: typeof CURRENT_PAGE;
   payload: number;
 };
 export type AddMessage = {
-  type: typeof ADD_MESSAGE;
+  // type: typeof ADD_MESSAGE;
   payload: {
     id: string;
     message: string;
   };
 };
-export type StateMessage = {
-  id: string;
-  message: string;
-};
+export interface StateMessage {
+  messages: UserPost[];
+}
+export interface Init {
+  userItems: UserItems[];
+  isLoader: boolean;
+}
 export type UserPost = {
   id: string;
   message: string;
@@ -54,14 +56,12 @@ export type PostState = {
   } | null;
 };
 export type AddPost = {
-  // type: typeof ADD_POST;
   payload: {
     id: string;
     message: string;
   };
 };
 export type GetUserProfile = {
-  // type: typeof GET_USER_PROFILE;
   payload: {
     aboutMe: string;
     photos: {
@@ -70,7 +70,6 @@ export type GetUserProfile = {
   };
 };
 export type GetUsersTotalCount = {
-  // type: typeof GET_TOTAL;
   payload: number;
 };
 export type UserItems = {
@@ -104,7 +103,4 @@ export type ShowPreload = {
   payload: boolean;
 };
 
-export interface Init {
-  userItems: UserItems[];
-  isLoader: boolean;
-}
+export type PageCount = { pageCount: number };

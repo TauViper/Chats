@@ -4,11 +4,11 @@ import {
 } from './postReducer';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { messageReducer } from './messageReducer';
-import { usersReducer } from './userReducer ';
+import { sliceMessage } from './messageReducer';
+import { sliceUser } from './userReducer ';
 import { sliceTotal } from './totalReducer';
-import { currentPageReducer } from './currentPageReducer';
-import { authReducer } from './authReducer';
+import { sliceCurrentPage } from './currentPageReducer';
+import { sliceaAuthUser } from './authReducer';
 
 export type StoreState = ReturnType<typeof rootReducer>;
 
@@ -18,11 +18,11 @@ export type StoreState = ReturnType<typeof rootReducer>;
 
 export const rootReducer = combineReducers({
   post: slicePost,
-  message: messageReducer,
-  users: usersReducer,
+  message: sliceMessage,
+  users: sliceUser,
   total: sliceTotal,
-  currentPage: currentPageReducer,
-  auth: authReducer,
+  currentPage: sliceCurrentPage,
+  auth: sliceaAuthUser,
 });
 
 export const store = configureStore({

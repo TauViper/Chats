@@ -1,17 +1,6 @@
-import {
-  FC,
-  // useContext,
-  useEffect,
-} from 'react';
+import { FC, useEffect } from 'react';
 import classes from './Users.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  follow,
-  unfollow,
-  getRes,
-  // getTotal,
-  // showPreloader,
-} from '../../Store/action';
 import { PageCount } from './PagesCount';
 import { COUNT, HTTPS, USER } from '../../Api/api';
 import { Preloader } from '../Preloader/Preloader';
@@ -20,13 +9,17 @@ import { NavLink } from 'react-router-dom';
 import { StoreState } from 'src/Components/Store';
 import { ThunkDispatch } from 'redux-thunk';
 import { getTotalUser } from 'src/Components/Store/totalReducer';
-// import { GetUserID } from '../../../App';
+import {
+  followed,
+  getRes,
+  unFollowed,
+} from 'src/Components/Store/userReducer ';
 
 export const Users: FC = () => {
   const stateUser = useSelector((state: StoreState) => state.users.userItems);
   const showSpiner = useSelector((state: StoreState) => state.users.isLoader);
   const currentPageState = useSelector(
-    (state: StoreState) => state.currentPage
+    (state: StoreState) => state.currentPage.pageCount
   );
   const dispatch = useDispatch<ThunkDispatch<StoreState, void, any>>();
 
@@ -36,10 +29,10 @@ export const Users: FC = () => {
   }, [dispatch, currentPageState]);
 
   const toggleFollowed = (id: number) => {
-    dispatch(follow(id));
+    dispatch(followed(id));
   };
   const toggleUnFollowed = (id: number) => {
-    dispatch(unfollow(id));
+    dispatch(unFollowed(id));
   };
 
   return (

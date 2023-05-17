@@ -5,13 +5,15 @@ import { Message } from './Message';
 import { Data } from '../../Data';
 import { StoreState } from 'src/Components/Store';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMessage } from '../../Store/action';
+import { addMessage } from 'src/Components/Store/messageReducer';
+import { nanoid } from 'nanoid';
+// import { addMessage } from '../../Store/action';
 
 export const Dialogs: FC = () => {
   const dispatch = useDispatch();
   const [message, setMessage] = useState('');
   const dialog = useSelector(() => Data);
-  const text = useSelector((state: StoreState) => state.message);
+  const text = useSelector((state: StoreState) => state.message.messages);
   // console.log(text);
 
   const Item = dialog.map((item) => (
@@ -19,7 +21,15 @@ export const Dialogs: FC = () => {
   ));
 
   const handleClick = () => {
-    dispatch(addMessage(message));
+    if (message) {
+      dispatch(
+        addMessage({
+          id: nanoid(),
+          message,
+        })
+      );
+      setMessage('');
+    }
     setMessage('');
   };
 

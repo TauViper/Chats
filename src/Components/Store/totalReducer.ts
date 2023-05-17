@@ -11,20 +11,7 @@ import { getApiResource } from '../Api/api';
 type TotalState = { total: number };
 
 export const initialState: TotalState = { total: 0 };
-console.log(initialState);
 
-// export const totalReducer = (
-//   state = initialState,
-//   action: GetUsersTotalCount
-// ): TotalState => {
-//   switch (action.type) {
-//     case GET_TOTAL:
-//       return action.payload;
-
-//     default:
-//       return state;
-//   }
-// };
 export const getTotalUser = createAsyncThunk(
   'total/getTotalUser',
   async (url: string) => {

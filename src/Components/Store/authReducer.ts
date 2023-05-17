@@ -1,21 +1,35 @@
-import { AUTH_USER } from './constants';
-import { AuthData, AuthUser } from './types';
+import { Slice, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { AuthData } from './types';
+import { getApiResource } from '../Api/api';
 
-export const initialTotalState: AuthData = {
-  id: null,
-  login: null,
-  email: null,
+export const initialState: AuthData = {
+  userData: {
+    id: null,
+    login: null,
+    email: null,
+  },
 };
 
-export const authReducer = (
-  state = initialTotalState,
-  action: AuthUser
-): AuthData => {
-  switch (action.type) {
-    case AUTH_USER:
-      return { ...state, ...action.payload };
-
-    default:
-      return state;
+export const authUser = createAsyncThunk(
+  'auth/authUser',
+  async (url: string) => {
+    const res = await getApiResource(url);
+    if (res.resultCode === 0) {
+      return res.data;
+    }
+    return false;
   }
-};
+);
+
+export const authReducer: Slice<AuthData> = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(authUser.fulfilled, (state: AuthData, action) => {
+      state.userData = { ...action.payload };
+    });
+  },
+});
+
+export const sliceaAuthUser = authReducer.reducer;

@@ -2,13 +2,14 @@ import { useEffect, FC } from 'react';
 import classes from './Header.module.css';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { authUser } from '../../Store/action';
+// import { authUser } from '../../Store/action';
 import { AUTH, HTTPS } from '../../Api/api';
 import { StoreState } from 'src/Components/Store';
 import { ThunkDispatch } from 'redux-thunk';
+import { authUser } from 'src/Components/Store/authReducer';
 
 export const Header: FC = () => {
-  const loginData = useSelector((state: StoreState) => state.auth);
+  const loginData = useSelector((state: StoreState) => state.auth.userData);
   // console.log(loginData);
   const dispatch = useDispatch<ThunkDispatch<StoreState, void, any>>();
 
