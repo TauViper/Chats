@@ -3,11 +3,9 @@ import { AuthData } from './types';
 import { getApiResource } from '../Api/api';
 
 export const initialState: AuthData = {
-  userData: {
-    id: null,
-    login: null,
-    email: null,
-  },
+  id: null,
+  login: null,
+  email: null,
 };
 
 export const authUser = createAsyncThunk(
@@ -26,9 +24,10 @@ export const authReducer: Slice<AuthData> = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(authUser.fulfilled, (state: AuthData, action) => {
-      state.userData = { ...action.payload };
-    });
+    builder.addCase(
+      authUser.fulfilled,
+      (state: AuthData, action) => action.payload
+    );
   },
 });
 

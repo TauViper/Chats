@@ -13,7 +13,7 @@ export const Dialogs: FC = () => {
   const dispatch = useDispatch();
   const [message, setMessage] = useState('');
   const dialog = useSelector(() => Data);
-  const text = useSelector((state: StoreState) => state.message.messages);
+  const text = useSelector((state: StoreState) => state.message);
   // console.log(text);
 
   const Item = dialog.map((item) => (
@@ -50,9 +50,17 @@ export const Dialogs: FC = () => {
               setMessage(e.target.value);
             }}
           />
-          <button type='submit' onClick={handleClick}>
-            Add Message
-          </button>
+          {message ? (
+            <button
+              type='submit'
+              onClick={handleClick}
+              style={{ cursor: 'pointer' }}
+            >
+              Add Message
+            </button>
+          ) : (
+            <button disabled>Write Message</button>
+          )}
         </>
       </div>
     </div>

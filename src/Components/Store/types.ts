@@ -1,15 +1,4 @@
-import {
-  ADD_MESSAGE,
-  AUTH_USER,
-  CURRENT_PAGE,
-  FOLLOWED,
-  GET_USERS,
-  SHOW_PRELOADER,
-  UNFOLLOWED,
-} from './constants';
-
 export type AuthUser = {
-  type: typeof AUTH_USER;
   payload: {
     id: string;
     email: string;
@@ -17,26 +6,22 @@ export type AuthUser = {
   };
 };
 export type AuthData = {
-  userData: {
-    id: null | string;
-    email: null | string;
-    login: null | string;
-  };
+  id: null | string;
+  email: null | string;
+  login: null | string;
 };
+
 export type CurrentPage = {
-  type: typeof CURRENT_PAGE;
   payload: number;
 };
 export type AddMessage = {
-  // type: typeof ADD_MESSAGE;
   payload: {
     id: string;
     message: string;
   };
 };
-export interface StateMessage {
-  messages: UserPost[];
-}
+export type StateMessage = UserPost[];
+
 export interface Init {
   userItems: UserItems[];
   isLoader: boolean;
@@ -85,22 +70,18 @@ export type UserItems = {
 };
 
 export type GetUsers = {
-  type: typeof GET_USERS;
   payload: UserItems[];
 };
 
 export type Follow = {
-  type: typeof FOLLOWED;
   payload: number;
 };
 export type UnFollow = {
-  type: typeof UNFOLLOWED;
   payload: number;
 };
 
 export type ShowPreload = {
-  type: typeof SHOW_PRELOADER;
   payload: boolean;
 };
 
-export type PageCount = { pageCount: number };
+export type PageCount = number;

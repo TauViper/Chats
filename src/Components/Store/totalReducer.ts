@@ -8,9 +8,9 @@ import {
 import { GetUsersTotalCount } from './types';
 import { getApiResource } from '../Api/api';
 
-type TotalState = { total: number };
+type TotalState = number;
 
-export const initialState: TotalState = { total: 0 };
+export const initialState: TotalState = 0;
 
 export const getTotalUser = createAsyncThunk(
   'total/getTotalUser',
@@ -27,9 +27,7 @@ export const totalSlice: Slice<TotalState> = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       getTotalUser.fulfilled,
-      (state, action: GetUsersTotalCount) => {
-        state.total = action.payload;
-      }
+      (state, action: GetUsersTotalCount) => action.payload
     );
   },
 });

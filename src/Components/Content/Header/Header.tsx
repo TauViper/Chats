@@ -7,11 +7,12 @@ import { AUTH, HTTPS } from '../../Api/api';
 import { StoreState } from 'src/Components/Store';
 import { ThunkDispatch } from 'redux-thunk';
 import { authUser } from 'src/Components/Store/authReducer';
+import { AnyAction } from 'redux';
 
 export const Header: FC = () => {
-  const loginData = useSelector((state: StoreState) => state.auth.userData);
+  const loginData = useSelector((state: StoreState) => state.auth);
   // console.log(loginData);
-  const dispatch = useDispatch<ThunkDispatch<StoreState, void, any>>();
+  const dispatch = useDispatch<ThunkDispatch<StoreState, void, AnyAction>>();
 
   useEffect(() => {
     dispatch(authUser(HTTPS + AUTH));

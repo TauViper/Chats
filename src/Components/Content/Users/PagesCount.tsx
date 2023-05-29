@@ -8,10 +8,10 @@ import { currentPage } from 'src/Components/Store/currentPageReducer';
 export const pagesSize = 100;
 
 export const PageCount: FC = () => {
-  const totalUsers = useSelector((state: StoreState) => state.total.total);
+  const totalUsers = useSelector((state: StoreState) => state.total);
 
   const currentPageState = useSelector(
-    (state: StoreState) => state.currentPage.pageCount
+    (state: StoreState) => state.currentPage
   );
   const dispatch = useDispatch();
 

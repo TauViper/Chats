@@ -20,9 +20,13 @@ export const InputPost: FC<Props> = ({ onAdd }) => {
           setMessage(e.target.value);
         }}
       />
-      <button type='submit' onClick={onText}>
-        Add Posts
-      </button>
+      {message ? (
+        <button type='submit' onClick={onText} style={{ cursor: 'pointer' }}>
+          Add Post
+        </button>
+      ) : (
+        <button disabled>Write Post</button>
+      )}
     </div>
   );
 };

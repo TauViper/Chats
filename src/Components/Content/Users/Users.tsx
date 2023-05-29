@@ -2,7 +2,13 @@ import { FC, useEffect } from 'react';
 import classes from './Users.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { PageCount } from './PagesCount';
-import { COUNT, HTTPS, USER } from '../../Api/api';
+import {
+  COUNT,
+  FOLLOWED,
+  HTTPS,
+  USER,
+  // deleteUserFollowed,
+} from '../../Api/api';
 import { Preloader } from '../Preloader/Preloader';
 import ava from '../../../Assets/cOPpcB6.png';
 import { NavLink } from 'react-router-dom';
@@ -10,18 +16,21 @@ import { StoreState } from 'src/Components/Store';
 import { ThunkDispatch } from 'redux-thunk';
 import { getTotalUser } from 'src/Components/Store/totalReducer';
 import {
-  followed,
+  deleteFollowed,
+  // followed,
   getRes,
-  unFollowed,
+  postFollowed,
+  // unFollowed,
 } from 'src/Components/Store/userReducer ';
+import { AnyAction } from 'redux';
 
 export const Users: FC = () => {
   const stateUser = useSelector((state: StoreState) => state.users.userItems);
   const showSpiner = useSelector((state: StoreState) => state.users.isLoader);
   const currentPageState = useSelector(
-    (state: StoreState) => state.currentPage.pageCount
+    (state: StoreState) => state.currentPage
   );
-  const dispatch = useDispatch<ThunkDispatch<StoreState, void, any>>();
+  const dispatch = useDispatch<ThunkDispatch<StoreState, void, AnyAction>>();
 
   useEffect(() => {
     dispatch(getRes(HTTPS + USER + `?page=${currentPageState}` + COUNT));
@@ -29,10 +38,10 @@ export const Users: FC = () => {
   }, [dispatch, currentPageState]);
 
   const toggleFollowed = (id: number) => {
-    dispatch(followed(id));
+    dispatch(postFollowed(HTTPS + FOLLOWED + id));
   };
   const toggleUnFollowed = (id: number) => {
-    dispatch(unFollowed(id));
+    dispatch(deleteFollowed(HTTPS + FOLLOWED + id));
   };
 
   return (
