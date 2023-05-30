@@ -7,6 +7,8 @@ import {
 
 import { Init, UserItems } from './types';
 import {
+  FOLLOWED,
+  HTTPS,
   deleteUserFollowed,
   getApiResource,
   postUserFollowed,
@@ -24,18 +26,16 @@ export const getRes = createAsyncThunk('user/getRes', async (url: string) => {
 });
 export const postFollowed = createAsyncThunk(
   'user/postFollowed',
-  async (url: string) => {
-    const res = await postUserFollowed(url);
-
-    return res.data;
+  async (id: number, { dispatch }) => {
+    await postUserFollowed(HTTPS + FOLLOWED + id);
+    dispatch(followed(id));
   }
 );
 export const deleteFollowed = createAsyncThunk(
   'user/deleteFollowed',
-  async (url: string) => {
-    const res = await deleteUserFollowed(url);
-
-    return res.data;
+  async (id: number, { dispatch }) => {
+    await deleteUserFollowed(HTTPS + FOLLOWED + id);
+    dispatch(unFollowed(id));
   }
 );
 
@@ -46,6 +46,18 @@ const userSlice: Slice<Init> = createSlice({
     // getUser(state: Init, action) {
     //   state.userItems = [...state.userItems, action.payload];
     // },
+    followed(state: Init, action) {
+      state.userItems = state.userItems.map(
+        (item): UserItems =>
+          item.id === action.payload ? { ...item, followed: true } : item
+      );
+    },
+    unFollowed(state: Init, action) {
+      state.userItems = state.userItems.map(
+        (item): UserItems =>
+          item.id === action.payload ? { ...item, followed: false } : item
+      );
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getRes.pending, (state) => {
@@ -58,25 +70,13 @@ const userSlice: Slice<Init> = createSlice({
     builder.addCase(postFollowed.pending, (state) => {
       state.isLoader = true;
     });
-    builder.addCase(postFollowed.fulfilled, (state, action) => {
-      state.userItems = state.userItems.map(
-        (item): UserItems =>
-          item.id === action.payload
-            ? { ...item, followed: action.payload }
-            : item
-      );
+    builder.addCase(postFollowed.fulfilled, (state) => {
       state.isLoader = false;
     });
     builder.addCase(deleteFollowed.pending, (state) => {
       state.isLoader = true;
     });
-    builder.addCase(deleteFollowed.fulfilled, (state, action) => {
-      state.userItems = state.userItems.map(
-        (item): UserItems =>
-          item.id === action.payload
-            ? { ...item, followed: action.payload }
-            : item
-      );
+    builder.addCase(deleteFollowed.fulfilled, (state) => {
       state.isLoader = false;
     });
   },

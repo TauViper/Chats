@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { PageCount } from './PagesCount';
 import {
   COUNT,
-  FOLLOWED,
   HTTPS,
   USER,
   // deleteUserFollowed,
@@ -38,10 +37,10 @@ export const Users: FC = () => {
   }, [dispatch, currentPageState]);
 
   const toggleFollowed = (id: number) => {
-    dispatch(postFollowed(HTTPS + FOLLOWED + id));
+    dispatch(postFollowed(id));
   };
   const toggleUnFollowed = (id: number) => {
-    dispatch(deleteFollowed(HTTPS + FOLLOWED + id));
+    dispatch(deleteFollowed(id));
   };
 
   return (
