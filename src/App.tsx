@@ -7,26 +7,30 @@ import { Dialogs } from './Components/Content/Dialogs/Dialogs';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Users } from './Components/Content/Users/Users';
 import { Home } from './Components/Content/Home/Home';
-// export const GetUserID = createContext(0);
+import { Login } from './Components/Content/Login/Login';
+import { PrivateRoute } from './PrivateRoute/PrivateRoute';
 
 export const App: FC = () => {
-  // const [userID, setUserId] = useState();
   return (
     <BrowserRouter>
-      {/* <GetUserID.Provider value={{ userID, setUserId }}> */}
       <div className='App'>
         <Header />
         <Navbar />
-        <div className='profile'>
+        <div className='main'>
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='profile/:id?' element={<Profile />} />
+
             <Route path='dialogs' element={<Dialogs />} />
-            <Route path='users' element={<Users />} />
+
+            <Route path='login' element={<Login />} />
+
+            <Route element={<PrivateRoute />}>
+              <Route path='profile/:id?' element={<Profile />} />
+              <Route path='users' element={<Users />} />
+            </Route>
           </Routes>
         </div>
       </div>
-      {/* </GetUserID.Provider> */}
     </BrowserRouter>
   );
 };

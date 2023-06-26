@@ -11,7 +11,7 @@ import { AnyAction } from 'redux';
 
 export const Header: FC = () => {
   const loginData = useSelector((state: StoreState) => state.auth);
-  // console.log(loginData);
+
   const dispatch = useDispatch<ThunkDispatch<StoreState, void, AnyAction>>();
 
   useEffect(() => {
@@ -22,10 +22,15 @@ export const Header: FC = () => {
     <>
       <div className={classes.header}>
         Header
-        <NavLink className={classes.loginButton} to='/login'>
-          Login
-          {loginData && <p>{loginData.login}</p>}
-        </NavLink>
+        {loginData.isAuth ? (
+          <NavLink className={classes.loginButton} to='/profile'>
+            <p>{loginData.login}</p>
+          </NavLink>
+        ) : (
+          <NavLink className={classes.loginButton} to='/login'>
+            <p>Login</p>
+          </NavLink>
+        )}
       </div>
     </>
   );

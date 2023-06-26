@@ -17,6 +17,7 @@
    border: 1px solid grey;
    border-radius: 11px;
    margin-top: 15px;
+   cursor: pointer;
 }
 .userInfo {
    display: flex;

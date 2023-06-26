@@ -9,6 +9,7 @@ export type AuthData = {
   id: null | string;
   email: null | string;
   login: null | string;
+  isAuth?: boolean;
 };
 
 export type CurrentPage = {
@@ -38,6 +39,7 @@ export type PostState = {
     photos: {
       small: string;
     };
+    id?: string;
   } | null;
 };
 export type AddPost = {

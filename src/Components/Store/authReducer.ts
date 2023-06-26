@@ -6,6 +6,7 @@ export const initialState: AuthData = {
   id: null,
   login: null,
   email: null,
+  isAuth: false,
 };
 
 export const authUser = createAsyncThunk(
@@ -13,9 +14,9 @@ export const authUser = createAsyncThunk(
   async (url: string) => {
     const res = await getApiResource(url);
     if (res.resultCode === 0) {
-      return res.data;
+      return { ...res.data, isAuth: true };
     }
-    return false;
+    return { isAuth: false };
   }
 );
 
@@ -28,6 +29,9 @@ export const authReducer: Slice<AuthData> = createSlice({
       authUser.fulfilled,
       (state: AuthData, action) => action.payload
     );
+    // builder.addCase(authUser.fulfilled, (state) => {
+    //   state.isAuth = true;
+    // });
   },
 });
 

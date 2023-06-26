@@ -1,35 +1,33 @@
-import React, {
-  FC,
-  // useContext,
-  useEffect,
-} from 'react';
+import React, { FC, useEffect } from 'react';
 import { Posts } from '../Posts/Posts';
 import { HTTPS, PROFILE } from '../../Api/api';
-// import { getUserProf } from '../../Store/action';
-import { useDispatch } from 'react-redux';
-// import { GetUserID } from '../../../App';
+
+import { useDispatch, useSelector } from 'react-redux';
+
 import { UserProfile } from './UserProfile';
 import { useParams } from 'react-router-dom';
 import { StoreState } from 'src/Components/Store';
 import { ThunkDispatch } from 'redux-thunk';
 import { getUserProf } from 'src/Components/Store/postReducer';
-// import { Dispatch } from 'redux';
 
 export const Profile: FC = () => {
   const { id } = useParams();
-  // console.log({ id });
-  // const profileID = useContext(GetUserID);
+  const loginData = useSelector((state: StoreState) => state.auth);
 
   const dispatch = useDispatch<ThunkDispatch<StoreState, void, any>>();
+
+  const urlId = id || loginData.id;
+
   useEffect(() => {
-    if (id) {
-      dispatch(getUserProf(HTTPS + PROFILE + `${id}`));
+    if (urlId) {
+      dispatch(getUserProf(`${HTTPS}${PROFILE}${urlId}`));
     }
-  }, [dispatch, id]);
+  }, [dispatch, urlId]);
 
   return (
     <div>
       <UserProfile />
+
       <Posts />
     </div>
   );
