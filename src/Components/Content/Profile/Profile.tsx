@@ -3,7 +3,7 @@ import { Posts } from '../Posts/Posts';
 import { HTTPS, PROFILE } from '../../Api/api';
 
 import { useDispatch, useSelector } from 'react-redux';
-
+import { AnyAction } from 'redux';
 import { UserProfile } from './UserProfile';
 import { useParams } from 'react-router-dom';
 import { StoreState } from 'src/Components/Store';
@@ -12,9 +12,9 @@ import { getUserProf } from 'src/Components/Store/postReducer';
 
 export const Profile: FC = () => {
   const { id } = useParams();
-  const loginData = useSelector((state: StoreState) => state.auth);
+  const loginData = useSelector((state: StoreState) => state.auth.userAuth);
 
-  const dispatch = useDispatch<ThunkDispatch<StoreState, void, any>>();
+  const dispatch = useDispatch<ThunkDispatch<StoreState, void, AnyAction>>();
 
   const urlId = id || loginData.id;
 
@@ -26,8 +26,7 @@ export const Profile: FC = () => {
 
   return (
     <div>
-      <UserProfile />
-
+      <UserProfile loginId={loginData.id} />
       <Posts />
     </div>
   );

@@ -9,12 +9,25 @@ import { sliceUser } from './userReducer ';
 import { sliceTotal } from './totalReducer';
 import { sliceCurrentPage } from './currentPageReducer';
 import { sliceaAuthUser } from './authReducer';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 export type StoreState = ReturnType<typeof rootReducer>;
 
-// export const composeEnhancers =
-
-//   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['auth'],
+};
 
 export const rootReducer = combineReducers({
   post: slicePost,
@@ -24,10 +37,15 @@ export const rootReducer = combineReducers({
   currentPage: sliceCurrentPage,
   auth: sliceaAuthUser,
 });
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: rootReducer,
-
-  // compose: composeEnhancers(),
-  // applyMiddleware: applyMiddleware(thunk),
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
+export const persistor = persistStore(store);

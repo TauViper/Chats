@@ -6,10 +6,13 @@ export type AuthUser = {
   };
 };
 export type AuthData = {
-  id: null | string;
-  email: null | string;
-  login: null | string;
-  isAuth?: boolean;
+  userAuth: {
+    id: null | string;
+    email: null | string;
+    login: null | string;
+    isAuth?: boolean;
+  };
+  isLoader: boolean;
 };
 
 export type CurrentPage = {
@@ -39,7 +42,7 @@ export type PostState = {
     photos: {
       small: string;
     };
-    id?: string;
+    userId?: string;
   } | null;
 };
 export type AddPost = {
@@ -54,6 +57,7 @@ export type GetUserProfile = {
     photos: {
       small: string;
     };
+    urlId: string;
   };
 };
 export type GetUsersTotalCount = {
@@ -87,3 +91,19 @@ export type ShowPreload = {
 };
 
 export type PageCount = number;
+
+export type ProfileProps = {
+  id?: string | undefined;
+  loginId: string | null;
+};
+export type LoginSchema = {
+  email: string;
+  password: string;
+  confirmPassword?: string;
+  rememberMe: boolean;
+};
+export interface LoginBody {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+}

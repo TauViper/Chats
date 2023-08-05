@@ -3,14 +3,14 @@ import classes from './Header.module.css';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // import { authUser } from '../../Store/action';
-import { AUTH, HTTPS } from '../../Api/api';
+import { AUTH, HTTPS, LOGIN } from '../../Api/api';
 import { StoreState } from 'src/Components/Store';
 import { ThunkDispatch } from 'redux-thunk';
-import { authUser } from 'src/Components/Store/authReducer';
+import { authUser, userLogOut } from 'src/Components/Store/authReducer';
 import { AnyAction } from 'redux';
 
 export const Header: FC = () => {
-  const loginData = useSelector((state: StoreState) => state.auth);
+  const loginData = useSelector((state: StoreState) => state.auth.userAuth);
 
   const dispatch = useDispatch<ThunkDispatch<StoreState, void, AnyAction>>();
 
@@ -23,9 +23,18 @@ export const Header: FC = () => {
       <div className={classes.header}>
         Header
         {loginData.isAuth ? (
-          <NavLink className={classes.loginButton} to='/profile'>
-            <p>{loginData.login}</p>
-          </NavLink>
+          <>
+            <NavLink className={classes.loginButton} to='/profile'>
+              <p>{loginData.login}</p>
+            </NavLink>
+            <br />
+            <button
+              className={classes.logOutButton}
+              onClick={() => dispatch(userLogOut(HTTPS + LOGIN))}
+            >
+              LogOut
+            </button>
+          </>
         ) : (
           <NavLink className={classes.loginButton} to='/login'>
             <p>Login</p>

@@ -8,7 +8,7 @@ import { GetUserID } from '../../../App';
 
 export const ProfileContext = () => {
   const profileID = useContext(GetUserID);
-  console.log(profileID.userID);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserProf(HTTPS + PROFILE + `${profileID.userID}`));

@@ -14,7 +14,6 @@ export const Dialogs: FC = () => {
   const [message, setMessage] = useState('');
   const dialog = useSelector(() => Data);
   const text = useSelector((state: StoreState) => state.message);
-  // console.log(text);
 
   const Item = dialog.map((item) => (
     <DialogItem key={item.id} id={item.id} name={item.name} />

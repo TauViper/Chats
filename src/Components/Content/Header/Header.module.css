@@ -7,4 +7,9 @@
 }
 .loginButton {
     float: right;
+    padding: 0 20px;
+}
+.logOutButton {
+    float: right;
+    margin: 10px 20px;
 }

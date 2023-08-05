@@ -1,13 +1,8 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import classes from './Users.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { PageCount } from './PagesCount';
-import {
-  COUNT,
-  HTTPS,
-  USER,
-  // deleteUserFollowed,
-} from '../../Api/api';
+import { HTTPS, USER } from '../../Api/api';
 import { Preloader } from '../Preloader/Preloader';
 import ava from '../../../Assets/cOPpcB6.png';
 import { NavLink } from 'react-router-dom';
@@ -16,14 +11,14 @@ import { ThunkDispatch } from 'redux-thunk';
 import { getTotalUser } from 'src/Components/Store/totalReducer';
 import {
   deleteFollowed,
-  // followed,
   getRes,
   postFollowed,
-  // unFollowed,
 } from 'src/Components/Store/userReducer ';
 import { AnyAction } from 'redux';
+import { CountInputOnePage } from './CountInputOnePage';
 
 export const Users: FC = () => {
+  const [usersOnPage, setUsersOnPage] = useState(25);
   const stateUser = useSelector((state: StoreState) => state.users.userItems);
   const showSpiner = useSelector((state: StoreState) => state.users.isLoader);
   const currentPageState = useSelector(
@@ -32,9 +27,13 @@ export const Users: FC = () => {
   const dispatch = useDispatch<ThunkDispatch<StoreState, void, AnyAction>>();
 
   useEffect(() => {
-    dispatch(getRes(HTTPS + USER + `?page=${currentPageState}` + COUNT));
+    dispatch(
+      getRes(
+        HTTPS + USER + `?page=${currentPageState}` + `&count=${usersOnPage}`
+      )
+    );
     dispatch(getTotalUser(HTTPS + USER));
-  }, [dispatch, currentPageState]);
+  }, [dispatch, currentPageState, usersOnPage]);
 
   const toggleFollowed = (id: number) => {
     dispatch(postFollowed(id));
@@ -46,7 +45,11 @@ export const Users: FC = () => {
   return (
     <div>
       <h1>Users</h1>
-      <PageCount />
+      <CountInputOnePage
+        usersOnPage={usersOnPage}
+        setUsersOnPage={setUsersOnPage}
+      />
+      <PageCount usersOnPage={usersOnPage} />
       {showSpiner ? (
         <Preloader />
       ) : (

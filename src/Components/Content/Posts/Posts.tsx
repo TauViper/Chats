@@ -9,7 +9,7 @@ import { nanoid } from 'nanoid';
 
 export const Posts: FC = () => {
   const posts = useSelector((state: StoreState) => state.post.userPosts);
-  // console.log(posts.userProfile.photos);
+
   const dispatch = useDispatch();
   const handleClick = (message: string) => {
     dispatch(
