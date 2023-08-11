@@ -46,10 +46,8 @@ export type PostState = {
   } | null;
 };
 export type AddPost = {
-  payload: {
-    id: string;
-    message: string;
-  };
+  id: string;
+  message: string;
 };
 export type GetUserProfile = {
   payload: {

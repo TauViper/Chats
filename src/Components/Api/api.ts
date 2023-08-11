@@ -7,6 +7,8 @@ export const PROFILE = 'profile/';
 export const AUTH = 'auth/me';
 export const LOGIN = 'auth/login';
 export const FOLLOWED = 'follow/';
+export const FOTO = 'photo';
+
 // export const COUNT = `&count=${pagesSize}`;
 
 export const getApiResource = async (url: string) => {
@@ -114,14 +116,29 @@ export const logout = async (url: string) => {
   }
 };
 
-// const test = deleteUserFollowed(
-//   'https://social-network.samuraijs.com/api/1.0/follow/29175'
-// );
-// const getTest = async (url: string) => {
-//   const res = await deleteUserFollowed(url);
+export const postUserFoto = async (file: File) => {
+  const formData = new FormData();
+  formData.append('image', file);
 
-//   return res.data;
-// };
-// console.log(
-//   getTest('https://social-network.samuraijs.com/api/1.0/follow/29175')
-// );
+  try {
+    const put = await fetch(HTTPS + PROFILE + FOTO, {
+      method: 'PUT',
+      body: formData,
+
+      credentials: 'include',
+      headers: {
+        // 'Content-Type': 'multipart/form-data',
+        'API-KEY': 'feb85ae3-dbb4-4259-8906-461cc8e9ca47',
+      },
+    });
+
+    if (!put.ok) {
+      console.error(put.status);
+      return false;
+    }
+    return await put.json();
+  } catch (error) {
+    console.error((error as Error).message);
+    return false;
+  }
+};
