@@ -23,6 +23,19 @@ export const Home: FC = () => {
           <br />
           Password: free
         </span>
+        <p
+          style={{
+            color: 'red',
+            border: '5px solid red',
+            marginBottom: '15px',
+          }}
+        >
+          <b>Важно!!! если выдаст ошибку при логировании !</b>
+          <br /> В связи с тем что Бэк на данный проект был написан без CORS то
+          при попытки залогинется, выдает ошибку CORS доступа.
+          <br /> Дабы не мудрить и не воротить поставьте плагин (если Chrome -
+          Access Control-Allow-Origin - Unblock) No-Cors
+        </p>
       </center>
 
       <p className={classes.p} style={{ maxWidth: '600px' }}>

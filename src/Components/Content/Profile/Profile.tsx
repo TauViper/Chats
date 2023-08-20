@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { Posts } from '../Posts/Posts';
 import { HTTPS, PROFILE } from '../../Api/api';
 

@@ -3,7 +3,7 @@ import './App.css';
 import { Header } from './Components/Content/Header/Header';
 import { Navbar } from './Components/Content/Navbar/Navbar';
 import { Dialogs } from './Components/Content/Dialogs/Dialogs';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import { Home } from './Components/Content/Home/Home';
 import { Login } from './Components/Content/Login/Login';
 import { PrivateRoute } from './PrivateRoute/PrivateRoute';
@@ -24,7 +24,7 @@ const LazyProfile = lazyLoad(Profile);
 
 export const App: FC = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className='App'>
         <Header />
         <Navbar />
@@ -50,6 +50,6 @@ export const App: FC = () => {
           </Routes>
         </div>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 };

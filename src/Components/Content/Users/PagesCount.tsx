@@ -25,7 +25,6 @@ export const PageCount: FC<Props> = ({ usersOnPage }) => {
   const [portionItems, setPosionItems] = useState(1);
   const leftside = (portionItems - 1) * oneBlockItems + 1;
   const rightSize = portionItems * oneBlockItems;
-  console.log(itemBlock);
 
   for (let i = 1; i <= usersDef; i++) {
     usersPage.push(i);

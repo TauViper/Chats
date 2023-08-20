@@ -45,7 +45,6 @@ export const InActiveForm: FC<Props> = ({ setIsEdit }) => {
     },
   });
   const onSubmit = (data: UserInfoSchema) => {
-    console.log(data);
     setIsEdit(false);
 
     dispatch(putInfoUser(data));
