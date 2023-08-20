@@ -1,7 +1,13 @@
 .header {
-    grid-area: h;
-    background-color: green;
+  grid-area: h;
+  background-color: green;
 }
-.header img{
-    width: 20px
+
+.loginButton {
+  float: right;
+  padding: 0 20px;
+}
+.logOutButton {
+  float: right;
+  margin: 10px 20px;
 }

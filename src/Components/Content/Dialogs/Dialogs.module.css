@@ -1,4 +1,4 @@
-.dialogs{
+.dialogs {
     display: grid;
     grid-template-columns: 2fr 10fr;
     grid-gap: 10px;
@@ -6,13 +6,14 @@
 .dialogsItems {
     text-align: center;
 }
-.item{
+.item {
     color: purple;
 }
-.messages{
+.messages {
     border: 2px solid black;
     text-align: center;
+    padding-bottom: 5px;
 }
-.message{
+.message {
     color: darkgray;
 }

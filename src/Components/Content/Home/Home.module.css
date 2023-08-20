@@ -1,0 +1,12 @@
+.img {
+  width: 100%;
+  background-image: url('../../../Assets/Font.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.p {
+  color: rgb(0 247 229);
+  font: bold 14px Arial, sans-serif;
+  text-shadow: -4px 1px 3px rgba(0, 0, 0, 17.47);
+  margin-left: 15px;
+}
