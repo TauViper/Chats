@@ -4,7 +4,6 @@ import {
   createAsyncThunk,
   createSlice,
 } from '@reduxjs/toolkit';
-// import { GET_TOTAL } from './constants';
 import { GetUsersTotalCount } from './types';
 import { getApiResource } from '../Api/api';
 

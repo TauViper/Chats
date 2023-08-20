@@ -2,6 +2,7 @@ import { Slice, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AuthData, LoginBody } from './types';
 import {
   AUTH,
+  CAPTCHA,
   HTTPS,
   LOGIN,
   getApiResource,
@@ -17,6 +18,7 @@ export const initialState: AuthData = {
     isAuth: false,
   },
   isLoader: false,
+  captchaURL: null,
 };
 
 export const authUser = createAsyncThunk(
@@ -33,9 +35,14 @@ export const userLogin = createAsyncThunk(
   'user/userLogin',
   async (data: LoginBody, { dispatch }) => {
     const res = await loginUser(HTTPS + LOGIN, data);
-    res.resultCode === 0
-      ? await dispatch(authUser(HTTPS + AUTH))
-      : alert(res.messages);
+    if (res.resultCode === 0) {
+      await dispatch(authUser(HTTPS + AUTH));
+    } else if (res.resultCode === 10) {
+      await dispatch(captchaURL(HTTPS + CAPTCHA));
+      alert(res.messages);
+    } else {
+      alert(res.messages);
+    }
   }
 );
 export const userLogOut = createAsyncThunk(
@@ -45,23 +52,33 @@ export const userLogOut = createAsyncThunk(
     await dispatch(authUser(HTTPS + AUTH));
   }
 );
+export const captchaURL = createAsyncThunk(
+  'user/captchaURL',
+  async (url: string, { dispatch }) => {
+    const res = await getApiResource(url);
+    await dispatch(setCaptcha(res.url));
+  }
+);
 
 export const authReducer: Slice<AuthData> = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    setCaptcha(state: AuthData, action) {
+      state.captchaURL = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(authUser.pending, (state) => {
       state.isLoader = true;
     });
     builder.addCase(authUser.fulfilled, (state: AuthData, action) => {
       state.userAuth = action.payload;
+      state.captchaURL = null;
       state.isLoader = false;
     });
-    // builder.addCase(authUser.fulfilled, (state) => {
-    //   state.isAuth = true;
-    // });
   },
 });
 
+export const { setCaptcha } = authReducer.actions;
 export const sliceaAuthUser = authReducer.reducer;

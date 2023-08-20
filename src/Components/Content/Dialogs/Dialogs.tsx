@@ -7,7 +7,6 @@ import { StoreState } from 'src/Components/Store';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage } from 'src/Components/Store/messageReducer';
 import { nanoid } from 'nanoid';
-// import { addMessage } from '../../Store/action';
 
 export const Dialogs: FC = () => {
   const dispatch = useDispatch();

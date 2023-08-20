@@ -1,20 +1,18 @@
 import {
   PayloadAction,
-  // AsyncThunk,
   Reducer,
   Slice,
   createAsyncThunk,
   createSlice,
 } from '@reduxjs/toolkit';
-// import { ADD_POST, GET_USER_PROFILE } from './constants';
+import { AddPost, GetUserProfile, PostState, UserInfoSchema } from './types';
 import {
-  AddPost,
-  GetUserProfile,
-  PostState,
-  // UserPost
-} from './types';
-import { getApiResource, postUserFoto } from '../Api/api';
-// import { UserProfile } from '../Content/Profile/UserProfile';
+  HTTPS,
+  PROFILE,
+  getApiResource,
+  postUserFoto,
+  putUserInfo,
+} from '../Api/api';
 
 const initialState: PostState = {
   userPosts: [
@@ -40,6 +38,14 @@ export const postFoto = createAsyncThunk(
     dispatch(addFoto(res.data.photos.small));
   }
 );
+export const putInfoUser = createAsyncThunk(
+  'post/putInfoUser',
+  async (data: UserInfoSchema, { dispatch }) => {
+    await putUserInfo(HTTPS + PROFILE, data);
+
+    dispatch(changeProfile(data));
+  }
+);
 
 const postSlice: Slice<PostState> = createSlice({
   name: 'post',
@@ -53,15 +59,26 @@ const postSlice: Slice<PostState> = createSlice({
         state.userProfile.photos.small = action.payload;
       }
     },
+    changeProfile(
+      state: PostState,
+      action: PayloadAction<Partial<PostState['userProfile']>>
+    ) {
+      if (state.userProfile) {
+        state.userProfile = {
+          ...state.userProfile,
+          ...action.payload,
+        };
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(
       getUserProf.fulfilled,
-      (state: PostState, action: GetUserProfile) => {
+      (state: PostState, action: PayloadAction<GetUserProfile>) => {
         state.userProfile = action.payload;
       }
     );
   },
 });
-export const { addPost, addFoto } = postSlice.actions;
+export const { addPost, addFoto, changeProfile } = postSlice.actions;
 export const slicePost: Reducer<PostState> = postSlice.reducer;

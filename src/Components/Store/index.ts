@@ -1,9 +1,5 @@
-import {
-  // postReducer
-  slicePost,
-} from './postReducer';
+import { slicePost } from './postReducer';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-
 import { sliceMessage } from './messageReducer';
 import { sliceUser } from './userReducer ';
 import { sliceTotal } from './totalReducer';

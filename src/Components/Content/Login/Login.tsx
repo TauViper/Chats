@@ -12,13 +12,19 @@ import { StoreState } from 'src/Components/Store';
 import { Navigate } from 'react-router-dom';
 
 const userSchema: ZodType<LoginSchema> = z.object({
-  email: z.string().email(),
-  password: z.string().min(4),
+  email: z.string().email({ message: 'Не соотвествует формату почты' }),
+  password: z
+    .string()
+    .min(4, { message: 'Пароль должен содержать минимум 3 символа' }),
   rememberMe: z.boolean(),
+  captcha: z.string().optional(),
 });
 
 export const Login: FC = () => {
   const loginData = useSelector((state: StoreState) => state.auth.userAuth);
+  const loginCaptcha = useSelector(
+    (state: StoreState) => state.auth.captchaURL
+  );
   const {
     register,
     formState: { errors, isValid },
@@ -79,6 +85,23 @@ export const Login: FC = () => {
             Remember me
           </span>
         </div>
+        <center>
+          {loginCaptcha && (
+            <img src={loginCaptcha} alt='captcha' className={classes.captcha} />
+          )}
+        </center>
+        {loginCaptcha && (
+          <label style={{ color: '#072ba2' }}>
+            Captcha:
+            <input className={classes.inputData} {...register('captcha')} />
+            <div>
+              {errors.captcha && (
+                <p className={classes.errorMessage}>{errors.captcha.message}</p>
+              )}
+            </div>
+          </label>
+        )}
+
         <button
           disabled={!isValid}
           type='submit'

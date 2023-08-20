@@ -1,5 +1,4 @@
-// import { pagesSize } from '../Content/Users/PagesCount';
-import { LoginBody } from '../Store/types';
+import { LoginBody, UserInfoSchema } from '../Store/types';
 
 export const HTTPS = 'https://social-network.samuraijs.com/api/1.0/';
 export const USER = 'users';
@@ -8,8 +7,7 @@ export const AUTH = 'auth/me';
 export const LOGIN = 'auth/login';
 export const FOLLOWED = 'follow/';
 export const FOTO = 'photo';
-
-// export const COUNT = `&count=${pagesSize}`;
+export const CAPTCHA = 'security/get-captcha-url';
 
 export const getApiResource = async (url: string) => {
   try {
@@ -137,6 +135,27 @@ export const postUserFoto = async (file: File) => {
       return false;
     }
     return await put.json();
+  } catch (error) {
+    console.error((error as Error).message);
+    return false;
+  }
+};
+export const putUserInfo = async (url: string, data: UserInfoSchema) => {
+  try {
+    const info = await fetch(url, {
+      method: 'PUT',
+      credentials: 'include',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        'API-KEY': 'feb85ae3-dbb4-4259-8906-461cc8e9ca47',
+      },
+    });
+    if (!info.ok) {
+      console.error(info.status);
+      return false;
+    }
+    return await info.json();
   } catch (error) {
     console.error((error as Error).message);
     return false;

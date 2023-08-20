@@ -21,7 +21,6 @@ export const initialState: Init = {
 
 export const getRes = createAsyncThunk('user/getRes', async (url: string) => {
   const res = await getApiResource(url);
-
   return res.items;
 });
 export const postFollowed = createAsyncThunk(
@@ -43,9 +42,6 @@ const userSlice: Slice<Init> = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    // getUser(state: Init, action) {
-    //   state.userItems = [...state.userItems, action.payload];
-    // },
     followed(state: Init, action) {
       state.userItems = state.userItems.map(
         (item): UserItems =>

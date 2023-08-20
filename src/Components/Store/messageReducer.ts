@@ -19,16 +19,3 @@ const messageSlice: Slice<StateMessage> = createSlice({
 });
 export const { addMessage } = messageSlice.actions;
 export const sliceMessage: Reducer<StateMessage> = messageSlice.reducer;
-
-// export const messageReducer = (
-//   state = initialMessageState,
-//   action: AddMessage
-// ): StateMessage[] => {
-//   switch (action.type) {
-//     case ADD_MESSAGE:
-//       return [...state, action.payload];
-
-//     default:
-//       return state;
-//   }
-// };

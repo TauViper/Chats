@@ -2,7 +2,7 @@
     margin: 25px 15px;
     padding: 10px 15px;
     width: 225px;
-    height: 225px;
+    height: 350px;
     border-radius: 30px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
@@ -25,4 +25,7 @@
 .errorMessage {
     color: red;
     font-size: 10px;
+}
+.captcha{
+    width: 70%;
 }

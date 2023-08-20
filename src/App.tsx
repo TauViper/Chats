@@ -2,14 +2,11 @@ import { FC, Suspense, lazy } from 'react';
 import './App.css';
 import { Header } from './Components/Content/Header/Header';
 import { Navbar } from './Components/Content/Navbar/Navbar';
-// import { Profile } from './Components/Content/Profile/Profile';
 import { Dialogs } from './Components/Content/Dialogs/Dialogs';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-// import { Users } from './Components/Content/Users/Users';
 import { Home } from './Components/Content/Home/Home';
 import { Login } from './Components/Content/Login/Login';
 import { PrivateRoute } from './PrivateRoute/PrivateRoute';
-// import { Preloader } from './Components/Content/Preloader/Preloader';
 import { lazyLoad } from './HOC/LazyLoad';
 
 const Profile = lazy(() =>
@@ -22,24 +19,6 @@ const Users = lazy(() =>
     default: Users,
   }))
 );
-
-// const Profile = lazy(() =>
-//   Promise.all([
-//     import('./Components/Content/Profile/Profile').then((module) => ({
-//       default: module.Profile,
-//     })),
-//     new Promise((resolve) => setTimeout(resolve, 1000)),
-//   ]).then(([Profile]) => Profile)
-// );
-
-// const Users = lazy(() =>
-//   Promise.all([
-//     import('./Components/Content/Users/Users').then(({ Users }) => ({
-//       default: Users,
-//     })),
-//     new Promise((resolve) => setTimeout(resolve, 1000)),
-//   ]).then(([moduleExport]) => moduleExport)
-// );
 
 const LazyProfile = lazyLoad(Profile);
 

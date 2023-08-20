@@ -2,7 +2,6 @@ import { useEffect, FC } from 'react';
 import classes from './Header.module.css';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// import { authUser } from '../../Store/action';
 import { AUTH, HTTPS, LOGIN } from '../../Api/api';
 import { StoreState } from 'src/Components/Store';
 import { ThunkDispatch } from 'redux-thunk';
@@ -25,7 +24,7 @@ export const Header: FC = () => {
         {loginData.isAuth ? (
           <>
             <NavLink className={classes.loginButton} to='/profile'>
-              <p>{loginData.login}</p>
+              {loginData.login}
             </NavLink>
             <br />
             <button

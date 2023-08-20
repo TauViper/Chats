@@ -1,12 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import classes from './Users.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  changeButton,
-  getRes,
-  getTotal,
-  // showPreloader,
-} from '../../Store/action';
+import { changeButton, getRes, getTotal } from '../../Store/action';
 import { PageCount } from './PagesCount';
 import { COUNT, HTTPS, USER } from '../../Api/api';
 import { Preloader } from '../Preloader/Preloader';

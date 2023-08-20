@@ -13,6 +13,7 @@ export type AuthData = {
     isAuth?: boolean;
   };
   isLoader: boolean;
+  captchaURL: null | string;
 };
 
 export type CurrentPage = {
@@ -39,6 +40,9 @@ export type PostState = {
   userPosts: UserPost[];
   userProfile: {
     aboutMe: string;
+    lookingForAJob: boolean;
+    lookingForAJobDescription: string;
+    fullName: string;
     photos: {
       small: string;
     };
@@ -50,13 +54,14 @@ export type AddPost = {
   message: string;
 };
 export type GetUserProfile = {
-  payload: {
-    aboutMe: string;
-    photos: {
-      small: string;
-    };
-    urlId: string;
+  aboutMe: string;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  fullName: string;
+  photos: {
+    small: string;
   };
+  urlId: string;
 };
 export type GetUsersTotalCount = {
   payload: number;
@@ -93,15 +98,25 @@ export type PageCount = number;
 export type ProfileProps = {
   id?: string | undefined;
   loginId: string | null;
+  setIsEdit?: boolean;
 };
 export type LoginSchema = {
   email: string;
   password: string;
   confirmPassword?: string;
   rememberMe: boolean;
+  captcha?: string;
 };
+
 export interface LoginBody {
   email: string;
   password: string;
   rememberMe: boolean;
+  captcha?: string;
 }
+export type UserInfoSchema = {
+  fullName: string;
+  aboutMe: string;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+};

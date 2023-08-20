@@ -6,9 +6,13 @@ import ava from '../../../Assets/cOPpcB6.png';
 import { postFoto } from 'src/Components/Store/postReducer';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
+import { UnActiveForm } from 'src/Components/FormForUsers/UnActiveForm';
+import { InActiveForm } from 'src/Components/FormForUsers/InActiveForm';
+// import { CAPTCHA, HTTPS, getApiResource } from 'src/Components/Api/api';
 
 export const UserProfile: FC<ProfileProps> = ({ ...props }) => {
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+
   const dispatch = useDispatch<ThunkDispatch<StoreState, void, AnyAction>>();
   const UserProfileData = useSelector(
     (state: StoreState) => state.post.userProfile
@@ -35,18 +39,17 @@ export const UserProfile: FC<ProfileProps> = ({ ...props }) => {
           />
           <input type='file' onChange={handleAddFoto} />
           {isEdit ? (
-            <div>
-              <input
-                placeholder={UserProfileData.aboutMe}
-                type='text'
-                autoFocus={true}
-                onBlur={() => setIsEdit(false)}
-              ></input>
-            </div>
+            <InActiveForm setIsEdit={setIsEdit} />
           ) : (
-            <p onDoubleClick={() => setIsEdit(true)}>
-              About me: <span>{UserProfileData.aboutMe}</span>
-            </p>
+            <>
+              <UnActiveForm />
+              <button
+                onClick={() => setIsEdit(true)}
+                style={{ marginBottom: '15px' }}
+              >
+                Edit
+              </button>
+            </>
           )}
         </>
       );
@@ -62,10 +65,7 @@ export const UserProfile: FC<ProfileProps> = ({ ...props }) => {
             alt='Small Photo'
             style={{ height: '150px', width: '150px' }}
           />
-
-          <p>
-            About me: <span>{UserProfileData.aboutMe}</span>
-          </p>
+          <UnActiveForm />
         </>
       );
     }
