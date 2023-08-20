@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/567.c418ee17.chunk.css","mappings":"AACA,sBAGI,kBAAmB,CADnB,WAAY,CADZ,UAGJ","sources":["Components/Content/Posts/Post/Post.module.css"],"sourcesContent":["\r\n.ava img {\r\n    width: 40px;\r\n    height: 40px;\r\n    border-radius: 25px;\r\n}"],"names":[],"sourceRoot":""}
